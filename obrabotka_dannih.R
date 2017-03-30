@@ -13,7 +13,6 @@ table$Категория <- NULL
 table$Описание <- NULL
 info$`Имя продавца`<- table$`Имя продавца`
 table$`Имя продавца` <- NULL
-2
 
  table[,`:=`(kitchen = str_detect(str_split(table$Параметры,","),unlist(str_split(table$Параметры[which.max(str_count(table$Параметры))],","))[1])
         ,mebel = str_detect(str_split(table$Параметры,","),unlist(str_split(table$Параметры[which.max(str_count(table$Параметры))],","))[2])
