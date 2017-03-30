@@ -3,7 +3,7 @@ library("stringr")
 library("mice")
 getwd()
 setwd("C:/Users/user/Desktop/аренда")
-table<- fread("ciaaaaan.csv")
+table<- fread("ciaaaaan_krug2.csv")
 table$rooms<- as.numeric(str_sub(table$Заголовок,1,1))
 table[,':='(odna = rooms==1,dve = rooms==2)]
 table$rooms <- NULL
@@ -74,4 +74,5 @@ table$`Имя продавца` <- NULL
      table$plo_kitchen[which(is.na(table$plo_kitchen))] <- median(table$plo_kitchen,na.rm = T)
      table$plo_shil[which(is.na(table$plo_shil))] <- median(table$plo_shil,na.rm = T)
      table$polotolki[which(is.na(table$polotolki))] <- median(table$polotolki,na.rm = T)
+
      
