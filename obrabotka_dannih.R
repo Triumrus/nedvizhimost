@@ -1,9 +1,12 @@
 library("data.table")
 library("stringr")
+library("mice")
 getwd()
 setwd("C:/Users/user/Desktop/аренда")
 table<- fread("ciaaaaan.csv")
 table$rooms<- as.numeric(str_sub(table$Заголовок,1,1))
+table[,':='(odna = rooms==1,dve = rooms==2)]
+table$rooms <- NULL
 table$Заголовок <- NULL
 info <- table[,.(Адрес,Телефон)]
 table$Адрес <- NULL
@@ -56,13 +59,19 @@ table$`Имя продавца` <- NULL
    )]
    table$ремонт <- NULL
    metro<- lapply(table$метро,function(x)  {x== levels(as.factor(table$метро))})
-     metro <- matrix(unlist(metro),ncol = 152,byrow = T)
+        metro <- matrix(unlist(metro),ncol = length(metro[[1]]),byrow = T)
      metro<- data.table(metro)
      names(metro) <- as.character(levels(as.factor(table$метро)))
      table<- cbind(table,metro)
      table$метро <- NULL
-     str(table)
-      rm(metro)
+     
+      rm(metro) 
      table<- sapply(table,as.numeric)
      table <- data.table(table)
+     
+     md.pattern(table)
+     table$go[which(is.na(table$go))] <- median(table$go,na.rm = T)
+     table$plo_kitchen[which(is.na(table$plo_kitchen))] <- median(table$plo_kitchen,na.rm = T)
+     table$plo_shil[which(is.na(table$plo_shil))] <- median(table$plo_shil,na.rm = T)
+     table$polotolki[which(is.na(table$polotolki))] <- median(table$polotolki,na.rm = T)
      
