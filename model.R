@@ -29,8 +29,7 @@ info$price_real <- table$Цена
 info$price_lm <- predict(fit_1,newdata = table[,-1])
 info$price_ridge <- pred
 info$otnoh<- (info$price_ridge+info$price_lm)/2-info$price_real
-plot(info$otnoh)
-
 
 info<- info[order(otnoh,decreasing = T)]
+plot(info$otnoh)
 
