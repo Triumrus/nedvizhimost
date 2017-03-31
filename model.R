@@ -22,7 +22,7 @@ m<-length(coef(fit_ridge))
 pred<- beta.fit_ridge[1]+as.matrix(table[,2:ncol(table)])%*%beta.fit_ridge[2:m]
 
 
-R_squar(table$Цена,info$price_xgboots)
+R_squar(table$Цена,pred)
 
 
 info$price_real <- table$Цена
@@ -33,3 +33,5 @@ info$otnoh<- (info$price_ridge+info$price_lm)/2-info$price_real
 info<- info[order(otnoh,decreasing = T)]
 plot(info$otnoh)
 
+
+fwrite(info,"order.csv")
