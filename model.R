@@ -1,5 +1,12 @@
 R_squar  <- function(fact,pred) {1-(sum((fact-pred)^2)/
-sum((fact-mean(fact))^2))}
+                                      sum((fact-mean(fact))^2))}
+
+
+
+
+
+
+
 
 
 
@@ -34,4 +41,42 @@ info<- info[order(otnoh,decreasing = T)]
 plot(info$otnoh)
 
 
-fwrite(info,"order.csv")
+# library("xgboost")
+# 
+# 
+# s<- sample(nrow(table),0.7*nrow(table))
+# 
+# train<- xgb.DMatrix(as.matrix(table[s,-1]), label=table$Цена[s])
+# 
+# val<- xgb.DMatrix(as.matrix(table[-s,-1]), label=table$Цена[-s])
+# 
+# watchlist<-list(val=val,train=train)
+# param <- list(  
+#                 booster = "gbtree",
+#                 eval_metric = 'rmse',
+#                 eta                 = 0.2, # 0.06, #0.01,
+#                 max_depth           = 6, #changed from default of 8
+#                 subsample           = 0.7, # 0.7
+#                 colsample_bytree    = 0.77 # 0.7
+#                 # num_parallel_tree   = 2
+#                 # alpha = 0.0001,
+#                 # lambda = 1
+#                 # lambda_bias = 1
+# )
+# 
+# clf2<- xgb.train(data = train, nrounds = 10000, params = param,
+#           watchlist =watchlist)
+# 
+# 
+# 
+# 
+# 
+# which.min(clf2$evaluation_log$val_rmse)
+# pred<- predict(clf2,as.matrix(table[,-1]),ntreelimit = which.min(clf2$evaluation_log$val_rmse))
+
+
+info
+fwrite(info,"order_2.csv")
+
+
+info <- info[price_real>35000]
