@@ -3,13 +3,6 @@ R_squar  <- function(fact,pred) {1-(sum((fact-pred)^2)/
 
 
 
-
-
-
-
-
-
-
 table<- as.data.frame(table)
 fit_1<- lm(table[,1]~.,table[,-1])
 summary(fit_1)
